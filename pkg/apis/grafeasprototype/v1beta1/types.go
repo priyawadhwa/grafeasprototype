@@ -19,13 +19,13 @@ type ImagePolicyRequirement struct {
 // PackageVulernerabilityRequirements is the requirements for package vulnz for an ImagePolicyRequirement
 type PackageVulernerabilityRequirements struct {
 	MaximumSeverity    string   `json:"maximumSeverity"`
-	OnlyFixesAvailable bool     `json:"onlyFixesAvailable`
+	OnlyFixesAvailable bool     `json:"onlyFixesAvailable"`
 	Whitelist          []string `json:"whitelist"`
 }
 
 // ImagePolicyRequirementSpec is the spec for a ImagePolicyRequirement resource
 type ImagePolicyRequirementSpec struct {
-	PackageVulernerabilityRequirements PackageVulernerabilityRequirements `json:"packageVulnerabilityRequirements`
+	PackageVulernerabilityRequirements PackageVulernerabilityRequirements `json:"packageVulnerabilityRequirements"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -1,0 +1,11 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: imagepolicyrequirements.grafeasprototype.github.com
+spec:
+  group: grafeasprototype.github.com
+  version: v1beta1
+  names:
+    kind: ImagePolicyRequirement
+    plural: imagepolicyrequirements
+  scope: Namespaced
