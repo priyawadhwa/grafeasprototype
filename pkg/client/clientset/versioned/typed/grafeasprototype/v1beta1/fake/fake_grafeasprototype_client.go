@@ -28,8 +28,8 @@ type FakeGrafeasprototypeV1beta1 struct {
 	*testing.Fake
 }
 
-func (c *FakeGrafeasprototypeV1beta1) ImagePolicyRequirements(namespace string) v1beta1.ImagePolicyRequirementInterface {
-	return &FakeImagePolicyRequirements{c, namespace}
+func (c *FakeGrafeasprototypeV1beta1) ImageSecurityPolicies(namespace string) v1beta1.ImageSecurityPolicyInterface {
+	return &FakeImageSecurityPolicies{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

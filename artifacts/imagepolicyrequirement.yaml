@@ -1,8 +1,0 @@
-apiVersion: grafeasprototype.github.com/v1beta1
-kind: ImagePolicyRequirement
-metadata:
-  name: my-ipr
-spec:
-  packageVulnerabilityRequirements:
-    maximumSeverity: LOW
-    onlyFixesAvailable: true

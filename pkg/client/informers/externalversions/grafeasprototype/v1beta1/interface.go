@@ -24,8 +24,8 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// ImagePolicyRequirements returns a ImagePolicyRequirementInformer.
-	ImagePolicyRequirements() ImagePolicyRequirementInformer
+	// ImageSecurityPolicies returns a ImageSecurityPolicyInformer.
+	ImageSecurityPolicies() ImageSecurityPolicyInformer
 }
 
 type version struct {
@@ -39,7 +39,7 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// ImagePolicyRequirements returns a ImagePolicyRequirementInformer.
-func (v *version) ImagePolicyRequirements() ImagePolicyRequirementInformer {
-	return &imagePolicyRequirementInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// ImageSecurityPolicies returns a ImageSecurityPolicyInformer.
+func (v *version) ImageSecurityPolicies() ImageSecurityPolicyInformer {
+	return &imageSecurityPolicyInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

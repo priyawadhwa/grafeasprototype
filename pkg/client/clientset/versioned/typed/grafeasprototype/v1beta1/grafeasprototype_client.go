@@ -27,7 +27,7 @@ import (
 
 type GrafeasprototypeV1beta1Interface interface {
 	RESTClient() rest.Interface
-	ImagePolicyRequirementsGetter
+	ImageSecurityPoliciesGetter
 }
 
 // GrafeasprototypeV1beta1Client is used to interact with features provided by the grafeasprototype group.
@@ -35,8 +35,8 @@ type GrafeasprototypeV1beta1Client struct {
 	restClient rest.Interface
 }
 
-func (c *GrafeasprototypeV1beta1Client) ImagePolicyRequirements(namespace string) ImagePolicyRequirementInterface {
-	return newImagePolicyRequirements(c, namespace)
+func (c *GrafeasprototypeV1beta1Client) ImageSecurityPolicies(namespace string) ImageSecurityPolicyInterface {
+	return newImageSecurityPolicies(c, namespace)
 }
 
 // NewForConfig creates a new GrafeasprototypeV1beta1Client for the given config.

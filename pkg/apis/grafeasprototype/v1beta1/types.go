@@ -8,32 +8,35 @@ import (
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ImagePolicyRequirement is a specification for a ImagePolicyRequirement resource
-type ImagePolicyRequirement struct {
+// ImageSecurityPolicy is a specification for a ImageSecurityPolicy resource
+type ImageSecurityPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec ImagePolicyRequirementSpec `json:"spec"`
+	Spec                 ImageSecurityPolicySpec `json:"spec"`
+	RequiredAttestations []string                `json:"requiredAttestations"`
+	Namespace            string                  `json:"namespace"`
+	ImageWhitelist       []string                `json:"imageWhitelist"`
 }
 
-// PackageVulernerabilityRequirements is the requirements for package vulnz for an ImagePolicyRequirement
+// PackageVulernerabilityRequirements is the requirements for package vulnz for an ImageSecurityPolicy
 type PackageVulernerabilityRequirements struct {
 	MaximumSeverity    string   `json:"maximumSeverity"`
 	OnlyFixesAvailable bool     `json:"onlyFixesAvailable"`
 	Whitelist          []string `json:"whitelist"`
 }
 
-// ImagePolicyRequirementSpec is the spec for a ImagePolicyRequirement resource
-type ImagePolicyRequirementSpec struct {
+// ImageSecurityPolicy is the spec for a ImageSecurityPolicy resource
+type ImageSecurityPolicySpec struct {
 	PackageVulernerabilityRequirements PackageVulernerabilityRequirements `json:"packageVulnerabilityRequirements"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ImagePolicyRequirementList is a list of ImagePolicyRequirement resources
-type ImagePolicyRequirementList struct {
+// ImageSecurityPolicy is a list of ImageSecurityPolicy resources
+type ImageSecurityPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 
-	Items []ImagePolicyRequirement `json:"items"`
+	Items []ImageSecurityPolicy `json:"items"`
 }

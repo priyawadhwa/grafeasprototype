@@ -18,10 +18,10 @@ limitations under the License.
 
 package v1beta1
 
-// ImagePolicyRequirementListerExpansion allows custom methods to be added to
-// ImagePolicyRequirementLister.
-type ImagePolicyRequirementListerExpansion interface{}
+// ImageSecurityPolicyListerExpansion allows custom methods to be added to
+// ImageSecurityPolicyLister.
+type ImageSecurityPolicyListerExpansion interface{}
 
-// ImagePolicyRequirementNamespaceListerExpansion allows custom methods to be added to
-// ImagePolicyRequirementNamespaceLister.
-type ImagePolicyRequirementNamespaceListerExpansion interface{}
+// ImageSecurityPolicyNamespaceListerExpansion allows custom methods to be added to
+// ImageSecurityPolicyNamespaceLister.
+type ImageSecurityPolicyNamespaceListerExpansion interface{}
