@@ -1,0 +1,9 @@
+apiVersion: grafeasprototype.github.com/v1beta1
+kind: ImageSecurityPolicy
+metadata:
+  name: my-isp
+spec:
+  packageVulnerabilityRequirements:
+    maximumSeverity: LOW
+    onlyFixesAvailable: true
+namespace: default

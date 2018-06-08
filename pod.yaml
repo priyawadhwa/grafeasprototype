@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+spec:
+  containers:
+  - name: test
+    image: gcr.io/priya-wadhwa/test:latest
+    volumeMounts:
+    - name: kaniko-secret
+      mountPath: /secret
+    env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /secret/priya-wadhwa-07f2d891ee9f.json
+  serviceAccountName: prototype-service-account
+  restartPolicy: Never
+  volumes:
+    - name: kaniko-secret
+      secret:
+        secretName: kaniko-secret
