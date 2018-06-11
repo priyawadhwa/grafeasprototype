@@ -37,26 +37,25 @@ func main() {
 func execute() error {
 	iprs, err := getImageSecurityPolicies()
 	if err != nil {
-		return fmt.Errorf("error getting image policy requirements: %v", err)
+		return fmt.Errorf("Error getting image policy requirements: %v", err)
 	}
 	for _, ipr := range iprs {
-		fmt.Println(ipr)
+		logrus.Infof("Checking images in namespace %s with maximum vulnz severity %s", ipr.Namespace, ipr.Spec.PackageVulernerabilityRequirements.MaximumSeverity)
 		images, err := getImagesInNamespace(ipr.Namespace)
 		if err != nil {
 			return err
 		}
 		for _, image := range images {
-			logrus.Infof("checking for vulnz in %s", image)
+			logrus.Infof("Checking for vulnz in %s", image)
 			occs, err := getOccurrences(image)
 			if err != nil {
 				return fmt.Errorf("couldn't get occurrences: %v", err)
 			}
-			fmt.Println("occs:", occs)
 			filtered := filterOccurrences(occs, ipr.Spec.PackageVulernerabilityRequirements.MaximumSeverity)
 			if len(filtered) > 0 {
-				fmt.Println("Found vulnz in", image)
+				logrus.Errorf("Found vulnz in %s with severity greater than %s: %s", image, ipr.Spec.PackageVulernerabilityRequirements.MaximumSeverity)
 				for _, f := range filtered {
-					fmt.Println(f.VulnerabilityDetails.AffectedLocation)
+					logrus.Errorf("%s with severity %s", f.NoteName, f.VulnerabilityDetails.Severity)
 				}
 			} else {
 				logrus.Infof("No vulnz exceeding severity %s found in image %s", ipr.Spec.PackageVulernerabilityRequirements.MaximumSeverity, image)
@@ -111,7 +110,8 @@ func getImagesInNamespace(namespace string) ([]string, error) {
 }
 
 func getOccurrences(image string) ([]grafeas.Occurrence, error) {
-	filter := fmt.Sprintf("kind=\"PACKAGE_VULNERABILITY\" AND resourceUrl=\"%s\"", image)
+	httpsImage := fmt.Sprintf("https://%s", image)
+	filter := fmt.Sprintf("resourceUrl=\"%s\"", httpsImage)
 	sp := strings.Split(strings.TrimPrefix(image, "https://"), "/")
 	if len(sp) < 3 {
 		return nil, fmt.Errorf("Malformed image %s should be gcr.io/<project>/<name>", image)
@@ -126,16 +126,12 @@ func getOccurrences(image string) ([]grafeas.Occurrence, error) {
 		Path:   path,
 	}
 	q := &url.Values{}
-	// q.Set("pageSize", "1000") // Just do one page
 	q.Set("filter", filter)
-	// if token != "" {
-	// 	q.Set("pageToken", token)
-	// }
 	u.RawQuery = q.Encode()
 	ctx := context.Background()
 	c, err := googleAuth.DefaultClient(ctx, authScope)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	resp, err := c.Get(u.String())
 	if err != nil {

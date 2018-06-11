@@ -29,5 +29,5 @@ out/main: $(GO_FILES)
 
 .PHONY: images
 images: out/main
-	docker build -t gcr.io/priya-wadhwa/test:latest .
-	docker push gcr.io/priya-wadhwa/test:latest
+	docker build -t gcr.io/priya-wadhwa/prototype:latest .
+	docker push gcr.io/priya-wadhwa/prototype:latest
