@@ -53,7 +53,7 @@ func execute() error {
 			}
 			filtered := filterOccurrences(occs, ipr.Spec.PackageVulernerabilityRequirements.MaximumSeverity)
 			if len(filtered) > 0 {
-				logrus.Errorf("Found vulnz in %s with severity greater than %s: %s", image, ipr.Spec.PackageVulernerabilityRequirements.MaximumSeverity)
+				logrus.Errorf("Found vulnz in %s with severity greater than %s", image, ipr.Spec.PackageVulernerabilityRequirements.MaximumSeverity)
 				for _, f := range filtered {
 					logrus.Errorf("%s with severity %s", f.NoteName, f.VulnerabilityDetails.Severity)
 				}
@@ -75,7 +75,7 @@ func getImageSecurityPolicies() ([]grafeasprototypev1beta1.ImageSecurityPolicy, 
 	if err != nil {
 		return nil, fmt.Errorf("Error building example clientset: %v", err)
 	}
-	list, err := exampleClient.GrafeasprototypeV1beta1().ImageSecurityPolicies("default").List(metav1.ListOptions{})
+	list, err := exampleClient.GrafeasprototypeV1beta1().ImageSecurityPolicies("").List(metav1.ListOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("Error listing all image policy requirements: %v", err)
 	}

@@ -15,7 +15,6 @@ type ImageSecurityPolicy struct {
 
 	Spec                 ImageSecurityPolicySpec `json:"spec"`
 	RequiredAttestations []string                `json:"requiredAttestations"`
-	Namespace            string                  `json:"namespace"`
 	ImageWhitelist       []string                `json:"imageWhitelist"`
 }
 
