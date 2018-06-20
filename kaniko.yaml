@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kaniko
+  annotations: {
+    "breakglass": "true"
+  }
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    args: [
+      "--bucket=kaniko-demo", "--destination=gcr.io/priya-wadhwa/test:test"
+    ]
+    volumeMounts:
+    - name: kaniko-secret
+      mountPath: /secret
+    env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /secret/kaniko-secret.json
+  serviceAccountName: prototype-service-account
+  restartPolicy: Never
+  volumes:
+    - name: kaniko-secret
+      secret:
+        secretName: kaniko-secret

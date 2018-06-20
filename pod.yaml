@@ -7,14 +7,16 @@ spec:
   - name: prototype
     image: gcr.io/priya-wadhwa/prototype:latest
     volumeMounts:
-    - name: kaniko-secret
+    - name: priyawadhwa-ca-admin
       mountPath: /secret
     env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /secret/priya-wadhwa-07f2d891ee9f.json
+        value: /secret/priyawadhwa-ca-admin.json
   serviceAccountName: prototype-service-account
   restartPolicy: Never
   volumes:
-    - name: kaniko-secret
+    - name: priyawadhwa-ca-admin
       secret:
-        secretName: kaniko-secret
+        secretName: priyawadhwa-ca-admin
+
+

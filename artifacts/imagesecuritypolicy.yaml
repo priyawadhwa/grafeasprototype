@@ -7,3 +7,7 @@ spec:
   packageVulnerabilityRequirements:
     maximumSeverity: HIGH
     onlyFixesAvailable: true
+    whitelist: 
+      - providers/goog-vulnz/notes/CVE-2017-1000082
+      - providers/goog-vulnz/notes/CVE-2017-1000081
+
